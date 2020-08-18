@@ -25,8 +25,8 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.876396167056-cdv2sksmnft3euokf8mhu4h8hcfbr0c0</string>
-				<string>fb296162261475258</string>
+				<string>com.googleusercontent.apps.1005765712601-9j0p6sg7u70ujmhbk8jga5smefckgn4d</string>
+				<string>fb2842301966054544</string>
 			</array>
 		</dict>
 	</array>
@@ -54,7 +54,7 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>FacebookAppID</key>
-	<string>296162261475258</string>
+	<string>2842301966054544</string>
 
 	<key>FacebookDisplayName</key>
 	<string>housekeeper</string>

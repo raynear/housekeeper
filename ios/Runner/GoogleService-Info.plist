@@ -3,23 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>876396167056-cdv2sksmnft3euokf8mhu4h8hcfbr0c0.apps.googleusercontent.com</string>
+	<string>1005765712601-9j0p6sg7u70ujmhbk8jga5smefckgn4d.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.876396167056-cdv2sksmnft3euokf8mhu4h8hcfbr0c0</string>
-	<key>ANDROID_CLIENT_ID</key>
-	<string>876396167056-b01t3fh7ebiabv3rrivg80gjdtbq16ph.apps.googleusercontent.com</string>
+	<string>com.googleusercontent.apps.1005765712601-9j0p6sg7u70ujmhbk8jga5smefckgn4d</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAPuls9Sj6530fEol4OmF88j-7QBU80I84</string>
+	<string>AIzaSyDwzCV6892r1nWd3dcmBbGJh_7a7Bp9x7Y</string>
 	<key>GCM_SENDER_ID</key>
-	<string>876396167056</string>
+	<string>1005765712601</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.raynear.housekeeper</string>
 	<key>PROJECT_ID</key>
-	<string>travel-line-e5349</string>
+	<string>house-keeper-10354</string>
 	<key>STORAGE_BUCKET</key>
-	<string>travel-line-e5349.appspot.com</string>
+	<string>house-keeper-10354.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:876396167056:ios:59538f2bd9127c3178fd15</string>
+	<string>1:1005765712601:ios:626d9fa481c364bbb3fcc8</string>
 	<key>DATABASE_URL</key>
-	<string>https://travel-line-e5349.firebaseio.com</string>
+	<string>https://house-keeper-10354.firebaseio.com</string>
 </dict>
 </plist>

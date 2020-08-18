@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:housekeeper/pages/menu.dart';
+import 'package:housekeeper/pages/house_list.dart';
 
 void main() {
   runApp(MyApp());
@@ -36,9 +37,10 @@ class _MyApp extends State<MyApp> {
             primarySwatch: Colors.indigo,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          initialRoute: '/',
+          initialRoute: '/house_list',
           routes: <String, WidgetBuilder>{
             '/': (BuildContext context) => Menu(),
+            '/house_list': (BuildContext context) => HouseList(),
           },
         ));
   }

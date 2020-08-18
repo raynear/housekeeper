@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "876396167056",
-    "firebase_url": "https://travel-line-e5349.firebaseio.com",
-    "project_id": "travel-line-e5349",
-    "storage_bucket": "travel-line-e5349.appspot.com"
+    "project_number": "1005765712601",
+    "firebase_url": "https://house-keeper-10354.firebaseio.com",
+    "project_id": "house-keeper-10354",
+    "storage_bucket": "house-keeper-10354.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:876396167056:android:251ada6f39bffd1978fd15",
+        "mobilesdk_app_id": "1:1005765712601:android:d7af1733aab0bf13b3fcc8",
         "android_client_info": {
           "package_name": "com.raynear.housekeeper"
         }
       },
       "oauth_client": [
         {
-          "client_id": "876396167056-b01t3fh7ebiabv3rrivg80gjdtbq16ph.apps.googleusercontent.com",
+          "client_id": "1005765712601-5n5fl0t3mo0p5ik4f02rimlj9gv741sp.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.raynear.housekeeper",
@@ -23,21 +23,28 @@
           }
         },
         {
-          "client_id": "876396167056-5sgjtnf1elmdbb6rc1526ko5ffe1rk35.apps.googleusercontent.com",
+          "client_id": "1005765712601-d3rpau9rg7fhctknc4k7s1oau69gom92.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyABN3V2uLF7BHWhp7dqOKasZ_5saFLHBfM"
+          "current_key": "AIzaSyCFetTbCsaiWXPZkLuepneQvCXEhjiyxMQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "876396167056-5sgjtnf1elmdbb6rc1526ko5ffe1rk35.apps.googleusercontent.com",
+              "client_id": "1005765712601-d3rpau9rg7fhctknc4k7s1oau69gom92.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1005765712601-9j0p6sg7u70ujmhbk8jga5smefckgn4d.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.raynear.housekeeper"
+              }
             }
           ]
         }

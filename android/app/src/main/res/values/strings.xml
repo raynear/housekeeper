@@ -3,11 +3,11 @@
     <string name="app_name">housekeeper</string>
 
     <!-- Replace "000000000000" with your Facebook App ID here. -->
-    <string name="facebook_app_id">296162261475258</string>
+    <string name="facebook_app_id">2842301966054544</string>
 
     <!--
       Replace "000000000000" with your Facebook App ID here.
       **NOTE**: The scheme needs to start with `fb` and then your ID.
     -->
-    <string name="fb_login_protocol_scheme">fb296162261475258</string>
+    <string name="fb_login_protocol_scheme">fb2842301966054544</string>
 </resources>
