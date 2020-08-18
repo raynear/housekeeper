@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "876396167056",
+    "firebase_url": "https://travel-line-e5349.firebaseio.com",
+    "project_id": "travel-line-e5349",
+    "storage_bucket": "travel-line-e5349.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:876396167056:android:251ada6f39bffd1978fd15",
+        "android_client_info": {
+          "package_name": "com.raynear.housekeeper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "876396167056-b01t3fh7ebiabv3rrivg80gjdtbq16ph.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.raynear.housekeeper",
+            "certificate_hash": "59161cf92fb95e1fc57ce274d5510d3b8b0d64dc"
+          }
+        },
+        {
+          "client_id": "876396167056-5sgjtnf1elmdbb6rc1526ko5ffe1rk35.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABN3V2uLF7BHWhp7dqOKasZ_5saFLHBfM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "876396167056-5sgjtnf1elmdbb6rc1526ko5ffe1rk35.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
