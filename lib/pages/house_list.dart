@@ -9,9 +9,10 @@ class HouseList extends StatefulWidget {
 }
 
 class _HouseListState extends State<HouseList> {
-  var _name = TextEditingController();
-  Query query = Firestore.instance.collection('housekeeper');
-  var batch = Firestore.instance.batch();
+  final _name = TextEditingController();
+  CollectionReference coll =
+      FirebaseFirestore.instance.collection('housekeeper');
+//  var batch = FirebaseFirestore.instance.batch();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,9 @@ class _HouseListState extends State<HouseList> {
             RaisedButton(
                 child: Text('제출'),
                 onPressed: () {
-                  print(_name.text);
+                  coll.add({'name': 'raynear', 'age': 41}).then((value) {
+                    print(value);
+                  });
                 })
           ],
         ));

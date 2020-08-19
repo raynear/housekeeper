@@ -72,7 +72,7 @@ class _Menu extends State<Menu> {
               title:
                   Text('housekeeper', style: GoogleFonts.getFont('Pacifico')),
               actions: [
-                (Provider.of<Account>(context).user?.photoUrl ?? '') != ''
+                (Provider.of<Account>(context).user?.photoURL ?? '') != ''
                     ? IconButton(
                         onPressed: () {
                           _toggleRight();
@@ -83,7 +83,7 @@ class _Menu extends State<Menu> {
                             child: CircleAvatar(
                               radius: appBarHeight * 0.9,
                               backgroundImage: CachedNetworkImageProvider(
-                                Provider.of<Account>(context).user?.photoUrl ??
+                                Provider.of<Account>(context).user?.photoURL ??
                                     '',
                               ),
                             )))
@@ -105,6 +105,11 @@ class _Menu extends State<Menu> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text('Menu'),
+                    RaisedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/house_list');
+                        },
+                        child: Text('go to list'))
                   ]),
             )));
   }

@@ -36,6 +36,7 @@ dependencies:
   flutter_inner_drawer:
   flutter_signin_button:
   cloud_firestore:
+  firebase_core:
   pedantic:
 #  flutter_svg:
 

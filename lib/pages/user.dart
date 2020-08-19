@@ -44,7 +44,7 @@ class _UserInfo extends State<UserInfo> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
               CachedNetworkImage(
-                  imageUrl: Provider.of<Account>(context).user?.photoUrl ?? '',
+                  imageUrl: Provider.of<Account>(context).user?.photoURL ?? '',
                   placeholder: (context, url) => CircularProgressIndicator(),
                   errorWidget: (context, url, error) => Icon(Icons.error)),
               Text(Provider.of<Account>(context).user.displayName,
@@ -75,7 +75,7 @@ class _UserInfo extends State<UserInfo> {
         final googleSignInAuthentication =
             await googleSignInAccount.authentication;
 
-        final credential = GoogleAuthProvider.getCredential(
+        final credential = GoogleAuthProvider.credential(
           accessToken: googleSignInAuthentication.accessToken,
           idToken: googleSignInAuthentication.idToken,
         );
@@ -97,8 +97,8 @@ class _UserInfo extends State<UserInfo> {
     } else if (loginMethod == login_method.facebook) {
       try {
         var result = await facebookLogin.logIn(['email', 'public_profile']);
-        final credential = FacebookAuthProvider.getCredential(
-            accessToken: result.accessToken.token);
+        final credential =
+            FacebookAuthProvider.credential(result.accessToken.token);
         final authResult = await _auth.signInWithCredential(credential);
         final user = authResult.user;
 
