@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 import 'package:housekeeper/pages/main_page.dart';
+import 'package:housekeeper/global_state.dart';
 import 'package:housekeeper/pages/user/sign_in.dart';
 import 'package:housekeeper/pages/house/house_list.dart';
 
@@ -18,7 +20,9 @@ class MyApp extends StatefulWidget {
 class _MyApp extends State<MyApp> {
   @override
   void initState() {
-    Firebase.initializeApp();
+    Firebase.initializeApp().then((_) {
+      user.value = FirebaseAuth.instance.currentUser;
+    });
     super.initState();
   }
 

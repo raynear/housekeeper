@@ -84,14 +84,10 @@ class _SignInState extends State<SignIn> {
         final authResult = await _auth.signInWithCredential(credential);
         user.value = authResult.user;
 
-        // Scaffold.of(context).showSnackBar(SnackBar(
-        //   content: Text("Sign In ${user.uid} with Google"),
-        // ));
+        Get.snackbar('Success', 'Login Success');
       } catch (e) {
         print(e);
-        // Scaffold.of(context).showSnackBar(SnackBar(
-        //   content: Text("Failed to sign in with Google: $e"),
-        // ));
+        Get.snackbar('Fail', 'Login Failed');
       }
     } else if (loginMethod == login_method.facebook) {
       try {
@@ -101,14 +97,10 @@ class _SignInState extends State<SignIn> {
         final authResult = await _auth.signInWithCredential(credential);
         user.value = authResult.user;
 
-        // Scaffold.of(context).showSnackBar(SnackBar(
-        //   content: Text("Sign In ${user.uid} with Facebook"),
-        // ));
+        Get.snackbar('Success', 'Login Success');
       } catch (e) {
         print(e);
-        // Scaffold.of(context).showSnackBar(SnackBar(
-        //   content: Text("Failed to sign in with Facebook: $e"),
-        // ));
+        Get.snackbar('Fail', 'Login Failed');
       }
     }
 
@@ -117,6 +109,7 @@ class _SignInState extends State<SignIn> {
 
   void _signOut(BuildContext context) async {
     await googleSignIn.signOut();
+    await facebookLogin.logOut();
     user.value = null;
   }
 }

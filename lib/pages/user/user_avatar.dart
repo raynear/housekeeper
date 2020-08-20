@@ -16,6 +16,7 @@ class UserAvatar extends StatelessWidget {
           ? IconButton(
               onPressed: () {
                 print('go to user info');
+                Get.toNamed('/sign_in');
               },
               icon: CircleAvatar(
                   radius: appBarHeight * 1.0,
