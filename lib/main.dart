@@ -33,9 +33,22 @@ class _MyApp extends State<MyApp> {
       ),
       initialRoute: '/',
       getPages: [
-        GetPage(name: '/', page: () => MainPage()),
-        GetPage(name: '/house_list', page: () => HouseList()),
-        GetPage(name: '/sign_in', page: () => SignIn()),
+        GetPage(
+            name: '/',
+            page: () => MainPage(),
+            transitionDuration: Duration(milliseconds: 100),
+            transition: Transition.native),
+        GetPage(
+            name: '/house_list',
+            page: () => HouseList(),
+            curve: Curves.bounceIn,
+            transitionDuration: Duration(milliseconds: 100),
+            transition: Transition.native),
+        GetPage(
+            name: '/sign_in',
+            page: () => SignIn(),
+            transitionDuration: Duration(milliseconds: 100),
+            transition: Transition.native),
       ],
     );
   }

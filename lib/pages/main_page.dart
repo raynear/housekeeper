@@ -13,15 +13,14 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: Drawer(
+            child: SafeArea(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [Text('Drawer Test')]))),
         appBar: AppBar(
           centerTitle: true,
           automaticallyImplyLeading: true,
-          leading: IconButton(
-            icon: Icon(Icons.dehaze),
-            onPressed: () {
-              print('open left');
-            },
-          ),
           title: Text('housekeeper', style: GoogleFonts.getFont('Pacifico')),
           actions: [UserAvatar()],
         ),
