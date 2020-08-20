@@ -38,6 +38,8 @@ dependencies:
   cloud_firestore:
   firebase_core:
   pedantic:
+  path:
+  get:
 #  flutter_svg:
 
 dev_dependencies:
