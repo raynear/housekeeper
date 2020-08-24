@@ -19,11 +19,39 @@ class _HouseListState extends State<HouseList> {
 
   @override
   Widget build(BuildContext context) {
+    if (user.value == null) {
+      return Scaffold(
+          appBar: AppBar(title: Text('Have to Sign in')),
+          body: Column(children: [Text('go to sign in')]));
+    }
     return Scaffold(
         appBar: AppBar(title: Text('Add House')),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            StreamBuilder(
+                stream: housekeeper
+                    .doc(user.value.uid)
+                    .collection('houses')
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  print(snapshot.connectionState.toString());
+                  print(snapshot.toString());
+                  print(snapshot.data.toString());
+                  if (!snapshot.hasError) {
+                    return Text('ERROR');
+                  }
+                  if (!snapshot.hasData) return LinearProgressIndicator();
+
+                  return ListView(
+                    children: snapshot.data.docs.map((doc) {
+                      return ListTile(
+                        title: Text(doc.data()['name']),
+                        subtitle: Text(doc.data()['address']),
+                      );
+                    }).toList(),
+                  );
+                }),
             TextField(
               controller: _name,
               onSubmitted: (name) {
@@ -34,33 +62,42 @@ class _HouseListState extends State<HouseList> {
                 child: Text('제출'),
                 onPressed: () async {
                   print(user.value.uid);
-                  await housekeeper
-                      .where('uid', isEqualTo: user.value?.uid)
-                      .get()
-                      .then((snapshot) async {
-                    snapshot.docs.forEach((doc) async {
-                      housekeeper
-                          .doc(doc.data()['house'])
-                          .collection('houses')
-                          .doc()
-                          .get()
-                          .then((aa) {
-                        print('test11111 ${aa.data()}');
-                      });
-                      print('house ${doc.data()['house']}');
-                      var aHouse = await houses
-                          .where('id', isEqualTo: doc.data()['house'])
-                          .get();
-                      print('aHouse $aHouse');
-                      aHouse.docs.forEach((element) {
-                        print('aaa ${element.data()}');
-                      });
+
+                  var bb = await housekeeper
+                      .doc(user.value.uid)
+                      .collection('houses')
+                      .snapshots();
+                  print(bb);
+                  await bb.first.then((item) async {
+                    await item.docs.forEach((element) async {
+                      print(element.data());
                     });
                   });
-                  // coll.add({'name': 'raynear', 'age': 41}).then((value) {
-                  //   print(value);
-                  // });
-                })
+
+                  var abcd = await housekeeper
+                      .doc(user.value?.uid)
+                      .collection('houses')
+                      .get();
+
+                  abcd.docs.forEach((element) {
+                    housekeeper
+                        .doc(user.value?.uid)
+                        .collection('houses')
+                        .doc(element.id)
+                        .collection('rooms')
+                        .get()
+                        .then((elm) {
+                      elm.docs.forEach((elm2) {
+                        print(elm2.data());
+                      });
+                    });
+                    print(element.data());
+                  });
+                }
+                // coll.add({'name': 'raynear', 'age': 41}).then((value) {
+                //   print(value);
+                // });
+                )
           ],
         ));
   }
