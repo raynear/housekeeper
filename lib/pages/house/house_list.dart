@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:get/get.dart';
+//import 'package:get/get.dart';
 
 import 'package:housekeeper/global_state.dart';
+import 'package:housekeeper/components/house_card.dart';
 // import 'package:housekeeper/pages/house/add_house.dart';
 
 class HouseList extends StatefulWidget {
@@ -17,14 +18,6 @@ class _HouseListState extends State<HouseList> {
   final addressController = TextEditingController();
   CollectionReference housekeeper =
       FirebaseFirestore.instance.collection('housekeeper');
-//  CollectionReference houses = FirebaseFirestore.instance.collection('houses');
-//  var batch = FirebaseFirestore.instance.batch();
-
-  // @override
-  // void dispose() {
-  //   nameController.dispose();
-  //   addressController.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +31,7 @@ class _HouseListState extends State<HouseList> {
     return Scaffold(
       appBar: AppBar(title: Text('House List')),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           StreamBuilder(
               stream: housekeeper
@@ -55,13 +48,9 @@ class _HouseListState extends State<HouseList> {
                 if (!snapshot.hasData) return LinearProgressIndicator();
 
                 snapshot.data.docs.forEach((doc) {
-                  widgetList.add(ListTile(
-                      title: Text(doc.data()['name']),
-                      subtitle: Text(doc.data()['address']),
-                      onTap: () {
-                        print(doc.data());
-                        Get.toNamed('/house', arguments: doc.documentID);
-                      }));
+                  var data = doc.data();
+                  data['documentID'] = doc.documentID;
+                  widgetList.add(HouseCard(data: data));
                 });
 
                 print(widgetList);

@@ -33,6 +33,8 @@ class _HouseState extends State<House> {
 
     var widgetList = <Widget>[];
 
+    var theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(title: Text('House')),
       body: ListView(
@@ -56,8 +58,16 @@ class _HouseState extends State<House> {
               print('snapshot $data');
               return Card(
                   color: Colors.blue[50],
-                  child: Column(
-                      children: [Text(data['name']), Text(data['address'])]));
+                  child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(data['name'],
+                                style: theme.textTheme.headline6),
+                            Text(data['address'],
+                                style: theme.textTheme.subtitle1)
+                          ])));
             },
           ),
           StreamBuilder(
@@ -103,9 +113,10 @@ class _HouseState extends State<House> {
                       }));
                 });
                 print(options);
-                widgetList.add(ListTile(
-                    title: Text(doc.data()['name']),
-                    subtitle: Column(children: optionWidget)));
+                widgetList.add(Card(
+                    child: ListTile(
+                        title: Text(doc.data()['name']),
+                        subtitle: Column(children: optionWidget))));
               });
 
               return ListView(
