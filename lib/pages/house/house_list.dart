@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:firestore_ui/firestore_ui.dart';
 //import 'package:get/get.dart';
 
 import 'package:housekeeper/global_state.dart';
@@ -18,27 +19,41 @@ class _HouseListState extends State<HouseList> {
   final addressController = TextEditingController();
   CollectionReference housekeeper =
       FirebaseFirestore.instance.collection('housekeeper');
+  bool setting = false;
 
   @override
   Widget build(BuildContext context) {
-    var widgetList = <Widget>[];
-
     if (user.value == null) {
       return Scaffold(
           appBar: AppBar(title: Text('Have to Sign in')),
           body: Column(children: [Text('go to sign in')]));
     }
     return Scaffold(
-      appBar: AppBar(title: Text('House List')),
+      appBar: AppBar(
+        title: Text('House List'),
+        actions: [
+          GestureDetector(
+              onTap: () {
+                print('change setting $setting');
+                setState(() {
+                  setting = setting ? false : true;
+                });
+              },
+              child: Padding(
+                  padding: EdgeInsets.all(8.0), child: Icon(Icons.settings)))
+        ],
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          StreamBuilder(
+          StreamBuilder<QuerySnapshot>(
               stream: housekeeper
                   .doc(user.value.uid)
                   .collection('houses')
-                  .snapshots(includeMetadataChanges: true),
-              builder: (context, snapshot) {
+                  .orderBy('name')
+                  .snapshots(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasError) {
                   return Text('ERROR');
                 }
@@ -47,58 +62,77 @@ class _HouseListState extends State<HouseList> {
                 }
                 if (!snapshot.hasData) return LinearProgressIndicator();
 
-                snapshot.data.docs.forEach((doc) {
-                  var data = doc.data();
-                  data['documentID'] = doc.documentID;
-                  widgetList.add(HouseCard(data: data));
-                });
-
-                print(widgetList);
-
+                // return FirestoreAnimatedList(
+                //     shrinkWrap: true,
+                //     debug: false,
+                //     query: housekeeper.doc(user.value.uid).collection('houses'),
+                //     onLoaded: (snapshot) => print('${snapshot.docs.length}'),
+                //     itemBuilder: (
+                //       BuildContext context,
+                //       DocumentSnapshot snapshot,
+                //       Animation<double> animation,
+                //       int index,
+                //     ) =>
+                //         FadeTransition(
+                //           opacity: animation,
+                //           child: HouseCard(
+                //             data: snapshot.data(),
+                //           ),
+                //         ));
                 return ListView(
                   shrinkWrap: true,
                   padding: EdgeInsets.all(10.0),
-                  children: widgetList,
+                  children: snapshot.data.docs.map((doc) {
+                    var data = doc.data();
+                    data['documentID'] = doc.id;
+                    return HouseCard(
+                      data: data,
+                      showButtons: setting,
+                    );
+                  }).toList(),
                 );
               }),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          return showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                    title: Text('Add House'),
-                    content: Column(
-                      children: [
-                        TextField(
-                          controller: nameController,
-                          decoration: InputDecoration(hintText: 'name'),
-                        ),
-                        TextField(
-                          controller: addressController,
-                          decoration: InputDecoration(hintText: 'address'),
-                        ),
-                        RaisedButton(
-                          child: Text('Submit'),
-                          onPressed: () {
-                            housekeeper
-                                .doc(user.value.uid)
-                                .collection('houses')
-                                .add({
-                              'name': nameController.text,
-                              'address': addressController.text
-                            });
-                            Navigator.pop(context);
-                          },
-                        )
-                      ],
-                    ));
-              });
-        },
-      ),
+      floatingActionButton: setting
+          ? FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () {
+                return showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                          title: Text('Add House'),
+                          content: Column(
+                            children: [
+                              TextField(
+                                controller: nameController,
+                                decoration: InputDecoration(hintText: 'name'),
+                              ),
+                              TextField(
+                                controller: addressController,
+                                decoration:
+                                    InputDecoration(hintText: 'address'),
+                              ),
+                              RaisedButton(
+                                child: Text('Submit'),
+                                onPressed: () {
+                                  housekeeper
+                                      .doc(user.value.uid)
+                                      .collection('houses')
+                                      .add({
+                                    'name': nameController.text,
+                                    'address': addressController.text
+                                  });
+                                  Navigator.pop(context);
+                                },
+                              )
+                            ],
+                          ));
+                    });
+              },
+            )
+          : Container(),
     );
   }
 }

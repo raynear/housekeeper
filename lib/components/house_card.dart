@@ -4,32 +4,29 @@ import 'package:get/get.dart';
 
 import 'package:housekeeper/global_state.dart';
 
-class HouseCard extends StatefulWidget {
+class HouseCard extends StatelessWidget {
+  HouseCard({Key key, @required this.data, @required this.showButtons});
+
   final Map<String, dynamic> data;
-  HouseCard({Key key, @required this.data}) : super(key: key);
+  final bool showButtons;
+  //     : super(key: key);
 
-  @override
-  _HouseCardState createState() => _HouseCardState();
-}
+//   @override
+//   _HouseCardState createState() => _HouseCardState();
+// }
 
-class _HouseCardState extends State<HouseCard> {
-  CollectionReference houses = FirebaseFirestore.instance
+// class _HouseCardState extends State<HouseCard> {
+  final CollectionReference houses = FirebaseFirestore.instance
       .collection('housekeeper')
       .doc(user.value.uid)
       .collection('houses');
-  var showButtons = false;
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     return GestureDetector(
         onTap: () {
-          print(widget.data);
-          Get.toNamed('/house', arguments: widget.data['documentID']);
-        },
-        onLongPress: () {
-          setState(() {
-            showButtons = !showButtons;
-          });
+          print(data);
+          Get.toNamed('/house', arguments: data['documentID']);
         },
         child: Card(
             child: Padding(
@@ -43,12 +40,15 @@ class _HouseCardState extends State<HouseCard> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(widget.data['name'],
-                                  style: theme.textTheme.headline6),
                               Text(
-                                widget.data['address'],
+                                data['name'],
+                                style: theme.textTheme.headline6,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              Text(
+                                data['address'],
                                 style: theme.textTheme.subtitle1,
-                                overflow: TextOverflow.fade,
+                                overflow: TextOverflow.ellipsis,
                                 maxLines: 3,
                               ),
                             ],
@@ -64,19 +64,25 @@ class _HouseCardState extends State<HouseCard> {
                                     padding: EdgeInsets.all(0),
                                     icon: Icon(Icons.edit),
                                     onPressed: () {
-                                      print('move to edit window');
                                       Get.toNamed('/house/edit',
-                                          arguments: widget.data['documentID']);
+                                          arguments: data['documentID']);
                                     },
                                   ),
                                   IconButton(
                                     padding: EdgeInsets.all(0),
                                     icon: Icon(Icons.delete),
                                     onPressed: () {
-                                      print('delete house');
                                       houses
-                                          .doc(widget.data['documentID'])
-                                          .delete();
+                                          .doc(data['documentID'])
+                                          .collection('rooms')
+                                          .get()
+                                          .then((snapshot) {
+                                        for (DocumentSnapshot ds
+                                            in snapshot.docs) {
+                                          ds.reference.delete();
+                                        }
+                                      });
+                                      houses.doc(data['documentID']).delete();
                                     },
                                   ),
                                 ],

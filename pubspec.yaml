@@ -38,6 +38,7 @@ dependencies:
   pedantic:
   path:
   get:
+  firestore_ui:
 #  flutter_svg:
 
 dev_dependencies:
