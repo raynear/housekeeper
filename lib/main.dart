@@ -8,6 +8,7 @@ import 'package:housekeeper/global_state.dart';
 import 'package:housekeeper/pages/user/sign_in.dart';
 import 'package:housekeeper/pages/house/house_list.dart';
 import 'package:housekeeper/pages/house/house.dart';
+import 'package:housekeeper/pages/house/room.dart';
 
 void main() {
   runApp(MyApp());
@@ -53,6 +54,11 @@ class _MyApp extends State<MyApp> {
             name: '/house',
             page: () => House(),
             curve: Curves.bounceIn,
+            transitionDuration: Duration(milliseconds: 100),
+            transition: Transition.native),
+        GetPage(
+            name: '/room',
+            page: () => Room(),
             transitionDuration: Duration(milliseconds: 100),
             transition: Transition.native),
         GetPage(

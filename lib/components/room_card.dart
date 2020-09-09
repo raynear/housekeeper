@@ -4,22 +4,16 @@ import 'package:get/get.dart';
 
 import 'package:housekeeper/global_state.dart';
 
-class HouseCard extends StatelessWidget {
-  HouseCard({Key key, @required this.data, @required this.showButtons});
+class RoomCard extends StatelessWidget {
+  RoomCard({Key key, @required this.data, @required this.showButtons});
 
   final Map<String, dynamic> data;
   final bool showButtons;
-  //     : super(key: key);
-
-//   @override
-//   _HouseCardState createState() => _HouseCardState();
-// }
-
-// class _HouseCardState extends State<HouseCard> {
   final CollectionReference houses = FirebaseFirestore.instance
       .collection('housekeeper')
       .doc(user.value.uid)
       .collection('houses');
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -33,7 +27,6 @@ class HouseCard extends StatelessWidget {
                 padding: EdgeInsets.all(8.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -95,58 +88,8 @@ class HouseCard extends StatelessWidget {
                       endIndent: 8.0,
                     ),
                     Text(
-                      '호실: 18개',
-                      style: theme.textTheme.bodyText2,
-                      textAlign: TextAlign.left,
-                    ),
-                    Text(
-                      '월세: 450만원',
-                      style: theme.textTheme.bodyText2,
-                      textAlign: TextAlign.left,
-                    ),
-                    Text(
-                      '관리비: 40만원',
-                      style: theme.textTheme.bodyText2,
-                      textAlign: TextAlign.left,
-                    ),
-                    Text(
-                      '미납금 : 120만원(2개 호실)',
-                      style: theme.textTheme.bodyText2,
-                      textAlign: TextAlign.left,
-                    ),
-                    Text(
-                      '공실률: 5.3%',
-                      style: theme.textTheme.bodyText2,
-                      textAlign: TextAlign.left,
-                    ),
-                    Text(
-                      '연체율: 12.5%',
-                      style: theme.textTheme.bodyText2,
-                      textAlign: TextAlign.left,
-                    ),
-                    ButtonBar(
-                      alignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        FlatButton(
-                          child: Text('호실 목록'),
-                          onPressed: () {
-                            print('press 호실 목록');
-                          },
-                        ),
-                        FlatButton(
-                          child: Text('입금 목록'),
-                          onPressed: () {
-                            print('press 입금 목록');
-                          },
-                        ),
-                        FlatButton(
-                          child: Text('연체 목록'),
-                          onPressed: () {
-                            print('press 연체 목록');
-                          },
-                        ),
-                      ],
-                    )
+                        'blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla',
+                        style: theme.textTheme.bodyText2),
                   ],
                 ))));
   }

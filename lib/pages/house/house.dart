@@ -27,16 +27,28 @@ class _HouseState extends State<House> {
   CollectionReference options =
       FirebaseFirestore.instance.collection('options');
 
+  var setting = false;
+
   @override
   Widget build(BuildContext context) {
     final nameController = TextEditingController();
 
-    var widgetList = <Widget>[];
+//    var widgetList = <Widget>[];
 
     var theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text('House')),
+      appBar: AppBar(title: Text('House'), actions: [
+        GestureDetector(
+            onTap: () {
+              print('change setting $setting');
+              setState(() {
+                setting = setting ? false : true;
+              });
+            },
+            child: Padding(
+                padding: EdgeInsets.all(8.0), child: Icon(Icons.settings)))
+      ]),
       body: ListView(
         children: [
           FutureBuilder<DocumentSnapshot>(
@@ -70,8 +82,8 @@ class _HouseState extends State<House> {
                           ])));
             },
           ),
-          StreamBuilder(
-            stream: rooms.snapshots(),
+          StreamBuilder<QuerySnapshot>(
+            stream: rooms.orderBy('name').snapshots(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return Text('ERROR');
@@ -81,80 +93,60 @@ class _HouseState extends State<House> {
               }
               if (!snapshot.hasData) return LinearProgressIndicator();
 
-              snapshot.data.docs.forEach((doc) {
-                var optionWidget = <Widget>[];
-                doc.data()['options'].forEach((option) async {
-                  print('option $option');
-
-                  optionWidget.add(FutureBuilder(
-                      future: options.doc(option).get(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) {
-                          return Text('ERROR ${snapshot.error}');
-                        }
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Text('Loading...');
-                        }
-                        if (!snapshot.hasData) {
-                          return LinearProgressIndicator();
-                        }
-                        var data = snapshot.data.data();
-
-                        print('future $data');
-                        return Column(
-                          children: [
-                            Text(data['photo'],
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-//                          Text(item.data()['purchase'].toString()),
-                            Text(data['type']),
-                          ],
-                        );
-                      }));
-                });
-                print(options);
-                widgetList.add(Card(
-                    child: ListTile(
-                        title: Text(doc.data()['name']),
-                        subtitle: Column(children: optionWidget))));
-              });
-
               return ListView(
                 shrinkWrap: true,
                 padding: EdgeInsets.all(10.0),
-                children: widgetList,
+                children: snapshot.data.docs.map((doc) {
+                  var data = doc.data();
+                  return GestureDetector(
+                      child: Card(
+                        child: ListTile(
+                          title: Text(data['name']),
+                          subtitle: Column(children: []),
+                        ),
+                      ),
+                      onTap: () {
+                        data['house'] = Get.arguments;
+                        data['room'] = doc.id;
+                        Get.toNamed('room', arguments: data);
+                      });
+                }).toList(),
               );
             },
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          return showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                    title: Text('Add Room'),
-                    content: Column(
-                      children: [
-                        TextField(
-                          controller: nameController,
-                          decoration: InputDecoration(hintText: 'name'),
-                        ),
-                        RaisedButton(
-                          child: Text('Submit'),
-                          onPressed: () {
-                            rooms.add(
-                                {'name': nameController.text, 'options': []});
-                            Navigator.pop(context);
-                          },
-                        )
-                      ],
-                    ));
-              });
-        },
-      ),
+      floatingActionButton: setting
+          ? FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () {
+                return showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                          title: Text('Add Room'),
+                          content: Column(
+                            children: [
+                              TextField(
+                                controller: nameController,
+                                decoration: InputDecoration(hintText: 'name'),
+                              ),
+                              RaisedButton(
+                                child: Text('Submit'),
+                                onPressed: () {
+                                  rooms.add({
+                                    'name': nameController.text,
+                                    'options': []
+                                  });
+                                  Navigator.pop(context);
+                                },
+                              )
+                            ],
+                          ));
+                    });
+              },
+            )
+          : Container(),
     );
   }
 }
