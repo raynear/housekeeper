@@ -39,6 +39,10 @@ dependencies:
   path:
   get:
   firestore_ui:
+  flutter_datetime_picker:
+  file_picker:
+  mask_text_input_formatter:
+  pattern_formatter:
 #  flutter_svg:
 
 dev_dependencies:

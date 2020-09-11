@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import 'package:housekeeper/components/new_contract_dialog.dart';
-import 'package:housekeeper/global_state.dart';
+// import 'package:housekeeper/global_state.dart';
 
 class Room extends StatefulWidget {
   Room({Key key}) : super(key: key);
@@ -25,7 +25,7 @@ class _RoomState extends State<Room> {
   @override
   Widget build(BuildContext context) {
     print(argument);
-//    var theme = Theme.of(context);
+    var theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(title: Text('House'), actions: [
         GestureDetector(
@@ -37,47 +37,58 @@ class _RoomState extends State<Room> {
             child: Padding(
                 padding: EdgeInsets.all(8.0), child: Icon(Icons.settings)))
       ]),
-      body: ListView(
-        children: [
-          FutureBuilder<DocumentSnapshot>(
-            future: contract.get(),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return Text('ERROR');
-              }
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Text('Loading...');
-              }
-              if (!snapshot.hasData) return LinearProgressIndicator();
+      body: Card(
+          margin: EdgeInsets.all(8),
+          child: Padding(
+              padding: EdgeInsets.all(8),
+              child: FutureBuilder<DocumentSnapshot>(
+                future: contract.get(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('ERROR');
+                  }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Text('Loading...');
+                  }
+                  if (!snapshot.hasData) return LinearProgressIndicator();
 
-              print(snapshot.data.data());
-              var roomContract = snapshot.data.data();
+                  print(snapshot.data.data());
+                  var roomContract = snapshot.data.data();
 
-              print(argument['options']);
+                  print(argument['options']);
 
-              return Card(
-                  child: Column(children: [
-                ListTile(
-                  title: Text(argument['name']),
-                  subtitle: Column(
-                    children: [
-                      Text(roomContract['tenant']),
-                      Text(roomContract['deposit'].toString()),
-                      Text(roomContract['rent'].toString()),
-                      Text(roomContract['contract']),
-                      Text(DateFormat('yyyy-MM-dd')
-                          .format(roomContract['due'].toDate())),
-                    ],
-                  ),
-                ),
-                Column(
-                  children: [Text('test')],
-                )
-              ]));
-            },
-          )
-        ],
-      ),
+                  return Column(children: [
+                    ListTile(
+                      title: Text(
+                        argument['name'],
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.headline4,
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Name: ' + roomContract['tenant'],
+                              style: theme.textTheme.bodyText1),
+                          Text('Deposit: ' + roomContract['deposit'].toString(),
+                              style: theme.textTheme.bodyText1),
+                          Text('Rent: ' + roomContract['rent'].toString(),
+                              style: theme.textTheme.bodyText1),
+                          Text('Contract: ' + roomContract['contract'],
+                              style: theme.textTheme.bodyText1),
+                          Text(
+                              'Date: ' +
+                                  DateFormat('yyyy-MM-dd')
+                                      .format(roomContract['due'].toDate()),
+                              style: theme.textTheme.bodyText1),
+                        ],
+                      ),
+                    ),
+                    Column(
+                      children: [Text('test')],
+                    )
+                  ]);
+                },
+              ))),
       floatingActionButton: setting
           ? FloatingActionButton(
               child: Icon(Icons.add),
